@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Add Contribution for {{ name }}</h1>
+    <form action="/add_contribution/{{ name }}" method="post">
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" step="0.01" class="form-control" id="amount" name="amount" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Contribution</button>
+    </form>
+{% endblock %}

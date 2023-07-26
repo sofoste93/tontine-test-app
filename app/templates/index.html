@@ -1,24 +1,65 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Members and Contributions</h1>
-<a href="/add_member" class="btn btn-primary mb-3">Add New Member</a>
-<a href="/export_data" class="btn btn-success mb-3 ml-2">Export Data</a>
-<a href="/import_data" class="btn btn-warning mb-3 ml-2">Import Data</a>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Contributions</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for member in members %}
-    <tr>
-        <td>{{ member.name }}</td>
-        <td>{{ member.contributions|join(", ") }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <h1>Members and Contributions</h1>
+    <a href="/add_member" class="btn btn-primary mb-3">Add New Member</a>
+    <a href="/export_data" class="btn btn-success mb-3 ml-2">Export Data</a>
+    <a href="/import_data" class="btn btn-warning mb-3 ml-2">Import Data</a>
+    <canvas id="chart"></canvas>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Contributions</th>
+                <th scope="col">Total Contributions</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td>{{ member.name }}</td>
+                <td>
+                    <ul>
+                    {% for contribution in member.contributions %}
+                        <li>{{ contribution['amount'] }} ({{ contribution['date'] }})</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ member.total_contributions }}</td>
+                <td><a href="/add_contribution/{{ member.name }}" class="btn btn-primary">Add Contribution</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        var ctx = document.getElementById('chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for member in members %}'{{ member.name }}', {% endfor %}],
+                datasets: [{
+                    data: [{% for member in members %}{{ member.total_contributions }}, {% endfor %}],
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',  // Increase the opacity
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2  // Increase the border width
+
+                }]
+            },
+            options: {
+    indexAxis: 'y',
+    scales: {
+        x: {
+            beginAtZero: true,
+            max: 100  // Add this line
+        }
+    }
+}
+
+        });
+
+</script>
 {% endblock %}
+
+
+
