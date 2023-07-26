@@ -1,21 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Members and Contributions</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Contributions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for member in members %}
-                <tr>
-                    <td>{{ member.name }}</td>
-                    <td>{{ member.contributions|join(", ") }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<h1>Members and Contributions</h1>
+<a href="/add_member" class="btn btn-primary mb-3">Add New Member</a>
+<a href="/export_data" class="btn btn-success mb-3 ml-2">Export Data</a>
+<a href="/import_data" class="btn btn-warning mb-3 ml-2">Import Data</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Contributions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for member in members %}
+    <tr>
+        <td>{{ member.name }}</td>
+        <td>{{ member.contributions|join(", ") }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
