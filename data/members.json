@@ -1,0 +1,10 @@
+[
+    {
+        "name": "John Doe",
+        "contributions": [100, 150, 200]
+    },
+    {
+        "name": "Jane Doe",
+        "contributions": [120, 180, 240]
+    }
+]

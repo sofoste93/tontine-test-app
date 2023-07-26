@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Members and Contributions</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contributions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+                <tr>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.contributions|join(", ") }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
