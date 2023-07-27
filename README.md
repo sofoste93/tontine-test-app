@@ -1,2 +1,2 @@
 # tontine-test-app
-Monthly contribution manager: written in python for the web :-)
+Monthly contributions manager: written in python for the web :-)
