@@ -1,24 +1,24 @@
 [
-    {
-        "name": "John Doe",
-        "contributions": [
-            {
-                "amount": 50.0,
-                "date": "2023-07-01T00:00:00"
-            },
-            {
-                "amount": 60.0,
-                "date": "2023-07-02T00:00:00"
-            }
-        ]
-    },
-    {
-        "name": "Jane Doe",
-        "contributions": [
-            {
-                "amount": 40.0,
-                "date": "2023-07-03T00:00:00"
-            }
-        ]
-    }
+  {
+    "name": "John Doe",
+    "contributions": [
+      {
+        "amount": 50.0,
+        "date": "2023-07-01T00:00:00"
+      }
+    ]
+  },
+  {
+    "name": "Jane Doe",
+    "contributions": [
+      {
+        "amount": 40.0,
+        "date": "2023-07-03T00:00:00"
+      }
+    ]
+  },
+  {
+    "name": "Tom Cat",
+    "contributions": []
+  }
 ]

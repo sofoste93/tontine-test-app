@@ -1,7 +1,10 @@
 import os
 import json
 from flask import Flask, render_template, request, redirect, url_for
+from flask import send_from_directory
 from helpers import Member
+from flask import jsonify
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -34,13 +37,17 @@ def add_member():
     return render_template('add_member.html')
 
 
-from flask import send_from_directory
-
-
 @app.route('/export_data')
 def export_data():
     with open(members_file_path, 'w') as f:
-        data_to_export = [{'name': member.name, 'contributions': member.contributions} for member in members]
+        data_to_export = [
+            {
+                'name': member.name,
+                'contributions': [{'amount': c['amount'], 'date': c['date'].strftime('%d/%m/%Y %H:%M:%S')} for c in
+                                  member.contributions]
+            }
+            for member in members
+        ]
         json.dump(data_to_export, f)
     return send_from_directory(BASE_DIR, 'data/members.json', as_attachment=True)
 
@@ -63,11 +70,25 @@ def import_data():
 def add_contribution(name):
     if request.method == 'POST':
         amount = request.form['amount']
+        date = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
         for member in members:
             if member.name == name:
-                member.add_contribution(float(amount))
+                member.add_contribution(float(amount), date)
         return redirect(url_for('home'))
     return render_template('add_contribution.html', name=name)
+
+
+@app.route('/total_contributions/<int:year>/<int:month>', methods=['GET'])
+def get_total_contributions_by_month(year, month):
+    total_contributions = []
+    for member in members:
+        total = 0
+        for contribution in member.contributions:
+            contribution_date = datetime.strptime(contribution['date'], '%d/%m/%Y %H:%M:%S')
+            if contribution_date.year == year and contribution_date.month == month:
+                total += contribution['amount']
+        total_contributions.append({'name': member.name, 'total': total})
+    return jsonify(total_contributions)
 
 
 if __name__ == "__main__":
