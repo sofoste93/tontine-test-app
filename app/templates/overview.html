@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Members Overview</h1>
+    <ul>
+    {% for member in members %}
+        <li>
+            <h2>{{ member.name }}</h2>
+            <p>Joined on: {{ member.adhesion_date.strftime('%d/%m/%Y') }}</p>
+            <a href="{{ url_for('add_contribution', name=member.name) }}">Add Contribution</a>
+            <a href="{{ url_for('update_member', name=member.name) }}">Update Info</a>
+            <a href="{{ url_for('delete_member', name=member.name) }}">Delete Member</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

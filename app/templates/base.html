@@ -5,21 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contributions Manager</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Add Chart.js -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Contributions Manager</a>
-        </div>
-    </nav>
-    <div class="container">
-        {% block content %}
-        {% endblock %}
+<body class="font-monospace">
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Contributions Manager</a>
     </div>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</nav>
+<div class="mt-2">
+</div>
+<div class="container mt-2">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- Remove the container if you want to extend the Footer to full width. -->
+<div class="footer">
+
+  <footer class="bg-light text-center">
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Form -->
+    <section class="">
+      <form action="">
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center">
+          <!--Grid column-->
+          <div class="col-auto">
+            <p class="pt-2">
+              <strong>Join us and become a member</strong>
+            </p>
+          </div>
+          <div class="col-md-5 col-12">
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" id="joinUsForm" class="form-control text-center" placeholder="tom-cat@club9.com" />
+              <label class="form-label" for="joinUsForm">Your email address</label>
+            </div>
+          </div>
+          <div class="col-auto">
+              <a href="/add_member" class="btn btn-primary mb-4">Join now</a>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+  <div class="text-center p-3 bg-secondary text-light" >
+    © 2023 Copyright:
+     <a class="text-dark" href="https://sofostech.com/">Sofostech.com</a>
+  </div>
+</footer>
+
+</div>
+<!-- End of .container -->
+
+
+
+<!-- Bootstrap JS -->
+<script src="../static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,97 +1,102 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Members and Contributions</h1>
-    <a href="/add_member" class="btn btn-primary mb-3">Add New Member</a>
-    <a href="/export_data" class="btn btn-success mb-3 ml-2">Export Data</a>
-    <a href="/import_data" class="btn btn-warning mb-3 ml-2">Import Data</a>
-    <form id="filter-form">
-        <label for="year">Year</label>
-        <input type="number" id="year" name="year" required>
-        <label for="month">Month</label>
-        <input type="number" id="month" name="month" required>
-        <button type="submit">Filter</button>
-    </form>
-    <canvas id="chart"></canvas>
+<h1>Members and Contributions</h1>
+<a href="/add_member" class="btn btn-primary mb-3">Add New Member</a>
+<a href="/export_data" class="btn btn-success mb-3 ml-2">Export Data</a>
+<a href="/import_data" class="btn btn-warning mb-3 ml-2">Import Data</a>
+<form id="filter-form">
+    <label for="year">Year</label>
+    <input type="number" id="year" name="year" required>
+    <label for="month">Month</label>
+    <input type="number" id="month" name="month" required>
+    <button type="submit">Filter</button>
+</form>
+<canvas id="chart"></canvas>
 <table class="table">
     <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Contributions</th>
-            <th scope="col">Date</th>
-            <th scope="col">Total Contributions</th>
-            <th scope="col">Actions</th>
-        </tr>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Contributions</th>
+        <th scope="col">Date</th>
+        <th scope="col">Total Contributions</th>
+        <th scope="col">Actions</th>
+    </tr>
     </thead>
     <tbody>
-        {% for member in members %}
-        <tr>
-            <td>{{ member.name }}</td>
-            <td>
-                <ul>
+    {% for member in members %}
+    <tr>
+        <td>{{ member.name }}</td>
+        <td>
+            <ul>
                 {% for contribution in member.contributions %}
-                    <li>{{ contribution['amount'] }} </li>
+                <li>{{ contribution['amount'] }}</li>
                 {% endfor %}
-                </ul>
-            </td>
-            <td>
-                <ul>
+            </ul>
+        </td>
+        <td>
+            <ul>
                 {% for contribution in member.contributions %}
-                    <li>{{ contribution['date'].strftime('%d/%m/%Y %H:%M:%S') }}</li>
+                <li>{{ contribution['date'].strftime('%d/%m/%Y %H:%M:%S') }}</li>
                 {% endfor %}
-                </ul>
-            </td>
-            <td>{{ member.total_contributions }}</td>
-            <td><a href="/add_contribution/{{ member.name }}" class="btn btn-primary">Add Contribution</a></td>
-        </tr>
-        {% endfor %}
+            </ul>
+        </td>
+        <td>{{ member.total_contributions }}</td>
+        <td>
+            <a href="/add_contribution/{{ member.name }}" class="btn btn-primary">Add Contribution</a>
+            <a href="/update_member/{{ member.name }}" class="btn btn-warning ml-2">Update</a>
+            <form method="POST" action="/delete_member/{{ member.name }}">
+                <input type="submit" value="Delete" class="btn btn-danger ml-2">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
     </tbody>
 </table>
 
-    <script>
-        var ctx = document.getElementById('chart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [{% for member in members %}'{{ member.name }}', {% endfor %}],
-                datasets: [{
-                    data: [{% for member in members %}{{ member.total_contributions }}, {% endfor %}],
-                    backgroundColor: 'rgba(75, 192, 192, 0.5)',  // Increase the opacity
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2  // Increase the border width
 
-                }]
-            },
-            options: {
-    indexAxis: 'y',
-    scales: {
-        x: {
-            beginAtZero: true,
-            max: 100  // Add this line
+<script>
+    var ctx = document.getElementById('chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [{% for member in members %}'{{ member.name }}'{% if not loop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            data: [{% for member in members %}{{member.total_contributions}}{% if not loop.last %},{% endif %}{% endfor %}],
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',  // Increase the opacity
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2  // Increase the border width
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        scales: {
+            x: {
+                beginAtZero: true,
+                max: 100  // Add this line
+            }
         }
     }
-}
-
-        });
-
+});
 </script>
 
-    <script>
-        document.getElementById('filter-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var year = document.getElementById('year').value;
-            var month = document.getElementById('month').value;
-            fetch('/total_contributions/' + year + '/' + month)
-                .then(response => response.json())
-                .then(data => {
-                    var names = data.map(item => item.name);
-                    var totals = data.map(item => item.total);
-                    myChart.data.labels = names;
-                    myChart.data.datasets[0].data = totals;
-                    myChart.update();
-                });
-        });
-    </script>
+
+<script>
+    document.getElementById('filter-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var year = document.getElementById('year').value;
+        var month = document.getElementById('month').value;
+        fetch('/total_contributions/' + year + '/' + month)
+            .then(response => response.json())
+            .then(data => {
+                var names = data.map(item => item.name);
+                var totals = data.map(item => item.total);
+                myChart.data.labels = names;
+                myChart.data.datasets[0].data = totals;
+                myChart.update();
+            });
+    });
+</script>
 {% endblock %}
 
 

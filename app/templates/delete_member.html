@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Delete Member</h1>
+    <form method="POST">
+        <p>Are you sure you want to delete {{ name }}?</p>
+        <input type="submit" value="Yes, Delete">
+    </form>
+{% endblock %}

@@ -1,46 +1,49 @@
 [
   {
-    "name": "John Doe",
+    "name": "Jerry Mouse",
+    "adhesion_date": "2023-07-29 23:51:04",
     "contributions": [
       {
-        "amount": 50.0,
-        "date": "01/07/2023 00:00:00"
+        "date": "2023-02-01 00:00:00",
+        "amount": 50.0
+      },
+      {
+        "date": "2023-03-01 00:00:00",
+        "amount": 75.0
       }
     ]
   },
   {
-    "name": "Jane Doe",
+    "name": "Enrich Kramer",
+    "adhesion_date": "2023-07-29 23:51:04",
     "contributions": [
       {
-        "amount": 40.0,
-        "date": "03/07/2023 00:00:00"
+        "date": "2023-02-02 00:00:00",
+        "amount": 100.0
+      },
+      {
+        "date": "2023-03-02 00:00:00",
+        "amount": 125.0
       }
     ]
   },
   {
-    "name": "Tom Cat",
+    "name": "FC Unterhof",
+    "adhesion_date": "2023-07-29 23:51:04",
     "contributions": [
       {
-        "amount": 30.0,
-        "date": "29/07/2023 19:32:24"
+        "date": "2023-07-29 23:33:36",
+        "amount": 333.0
       }
     ]
   },
   {
-    "name": "Mboumbap Annie",
+    "name": "tonton bert",
+    "adhesion_date": "2023-07-15 23:51:04",
     "contributions": [
       {
-        "amount": 80.0,
-        "date": "28/07/2023 21:32:24"
-      }
-    ]
-  },
-  {
-    "name": "Mayele Tchoua",
-    "contributions": [
-      {
-        "amount": 20.0,
-        "date": "25/07/2023 12:32:24"
+        "date": "2023-07-19 21:33:36",
+        "amount": 23.0
       }
     ]
   }
