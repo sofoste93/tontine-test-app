@@ -4,7 +4,7 @@
     "contributions": [
       {
         "amount": 50.0,
-        "date": "2023-07-01T00:00:00"
+        "date": "01/07/2023 00:00:00"
       }
     ]
   },
@@ -13,12 +13,35 @@
     "contributions": [
       {
         "amount": 40.0,
-        "date": "2023-07-03T00:00:00"
+        "date": "03/07/2023 00:00:00"
       }
     ]
   },
   {
     "name": "Tom Cat",
-    "contributions": []
+    "contributions": [
+      {
+        "amount": 30.0,
+        "date": "29/07/2023 19:32:24"
+      }
+    ]
+  },
+  {
+    "name": "Mboumbap Annie",
+    "contributions": [
+      {
+        "amount": 80.0,
+        "date": "28/07/2023 21:32:24"
+      }
+    ]
+  },
+  {
+    "name": "Mayele Tchoua",
+    "contributions": [
+      {
+        "amount": 20.0,
+        "date": "25/07/2023 12:32:24"
+      }
+    ]
   }
 ]
