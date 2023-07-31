@@ -5,87 +5,102 @@
 <a href="/add_member" class="btn btn-primary mb-3">Add New Member</a>
 <a href="/export_data" class="btn btn-success mb-3 ml-2">Export Data</a>
 <a href="/import_data" class="btn btn-warning mb-3 ml-2">Import Data</a>
+
+<!-- User-friendly date selection -->
 <form id="filter-form">
-    <label for="year">Year</label>
-    <input type="number" id="year" name="year" required>
-    <label for="month">Month</label>
-    <input type="number" id="month" name="month" required>
+    <label for="date">Date</label>
+    <input type="month" id="date" name="date" required>
     <button type="submit">Filter</button>
 </form>
+
 <canvas id="chart"></canvas>
+
+<!-- Table with pagination -->
 <table class="table">
     <thead>
-    <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Contributions</th>
-        <th scope="col">Date</th>
-        <th scope="col">Total Contributions</th>
-        <th scope="col">Actions</th>
-    </tr>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Contributions</th>
+            <th scope="col">Date</th>
+            <th scope="col">Total Contributions</th>
+            <th scope="col">Actions</th>
+        </tr>
     </thead>
     <tbody>
-    {% for member in members %}
-    <tr>
-        <td>{{ member.name }}</td>
-        <td>
-            <ul>
-                {% for contribution in member.contributions %}
-                <li>{{ contribution['amount'] }}</li>
-                {% endfor %}
-            </ul>
-        </td>
-        <td>
-            <ul>
-                {% for contribution in member.contributions %}
-                <li>{{ contribution['date'].strftime('%d/%m/%Y %H:%M:%S') }}</li>
-                {% endfor %}
-            </ul>
-        </td>
-        <td>{{ member.total_contributions }}</td>
-        <td>
-            <a href="/add_contribution/{{ member.name }}" class="btn btn-primary">Add Contribution</a>
-            <a href="/update_member/{{ member.name }}" class="btn btn-warning ml-2">Update</a>
-            <form method="POST" action="/delete_member/{{ member.name }}">
-                <input type="submit" value="Delete" class="btn btn-danger ml-2">
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
+        {% for member in members %}
+        <tr>
+            <td>{{ member.name }}</td>
+            <td>
+                <ul>
+                    {% for contribution in member.contributions %}
+                    <li>{{ contribution['amount'] }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    {% for contribution in member.contributions %}
+                    <li>{{ contribution['date'].strftime('%d/%m/%Y %H:%M:%S') }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>{{ member.total_contributions }}</td>
+            <td>
+                <a href="/add_contribution/{{ member.name }}" class="btn btn-primary">Add Contribution</a>
+                <a href="/update_member/{{ member.name }}" class="btn btn-warning ml-2">Update</a>
+                <form method="POST" action="/delete_member/{{ member.name }}">
+                    <input type="submit" value="Delete" class="btn btn-danger ml-2">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
 
+<!-- Pagination -->
+<div>
+    {% if page > 1 %}
+    <a href="{{ url_for('home', page=page-1) }}">Previous</a>
+    {% endif %}
+    {% if members|length == per_page %}
+    <a href="{{ url_for('home', page=page+1) }}">Next</a>
+    {% endif %}
+</div>
 
+
+<!-- Chart script -->
 <script>
     var ctx = document.getElementById('chart').getContext('2d');
     var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [{% for member in members %}'{{ member.name }}'{% if not loop.last %},{% endif %}{% endfor %}],
-        datasets: [{
-            data: [{% for member in members %}{{member.total_contributions}}{% if not loop.last %},{% endif %}{% endfor %}],
-            backgroundColor: 'rgba(75, 192, 192, 0.5)',  // Increase the opacity
-            borderColor: 'rgba(75, 192, 192, 1)',
+        type: 'bar',
+        data: {
+            labels: [{% for member in members %}'{{ member.name }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+    datasets: [{
+        data: [{% for member in members %}{{ member.total_contributions }}{% if not loop.last %}, {% endif %} {% endfor %}],
+    backgroundColor: 'rgba(75, 192, 192, 0.5)',  // Increase the opacity
+        borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 2  // Increase the border width
         }]
     },
     options: {
         indexAxis: 'y',
-        scales: {
+            scales: {
             x: {
                 beginAtZero: true,
-                max: 100  // Add this line
+                    max: 100  // Add this line
             }
         }
     }
 });
 </script>
 
-
+<!-- Filter form script -->
 <script>
     document.getElementById('filter-form').addEventListener('submit', function (e) {
         e.preventDefault();
-        var year = document.getElementById('year').value;
-        var month = document.getElementById('month').value;
+        var date = document.getElementById('date').value;
+        var year = date.slice(0, 4);
+        var month = date.slice(5);
         fetch('/total_contributions/' + year + '/' + month)
             .then(response => response.json())
             .then(data => {
@@ -98,6 +113,3 @@
     });
 </script>
 {% endblock %}
-
-
-
