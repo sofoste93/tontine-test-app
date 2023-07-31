@@ -58,15 +58,18 @@
 </table>
 
 <!-- Pagination -->
-<div>
-    {% if page > 1 %}
-    <a href="{{ url_for('home', page=page-1) }}">Previous</a>
-    {% endif %}
-    {% if members|length == per_page %}
-    <a href="{{ url_for('home', page=page+1) }}">Next</a>
-    {% endif %}
+<div class="d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if page > 1 %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('home', page=page-1) }}">Previous</a></li>
+            {% endif %}
+            {% if members|length == per_page %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('home', page=page+1) }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
 </div>
-
 
 <!-- Chart script -->
 <script>

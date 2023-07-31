@@ -1,1 +1,82 @@
-[{"name": "Jerry Mouse", "contributions": [{"amount": 50.0, "date": "01/02/2023 00:00:00"}, {"amount": 75.0, "date": "01/03/2023 00:00:00"}]}, {"name": "FC Unterhof", "contributions": [{"amount": 333.0, "date": "29/07/2023 23:33:36"}]}, {"name": "tonton bert", "contributions": [{"amount": 23.0, "date": "19/07/2023 21:33:36"}]}]
+[
+    {
+        "name": "Jerry Mouse",
+        "adhesion_date": "2023-07-31T16:57:59.376320",
+        "contributions": [
+            {
+                "amount": 50.0,
+                "date": "2023-02-01T00:00:00"
+            }
+        ]
+    },
+    {
+        "name": "FC Unterhof",
+        "adhesion_date": "2023-07-31T16:57:59.378282",
+        "contributions": [
+            {
+                "amount": 333.0,
+                "date": "2023-07-29T23:33:36"
+            }
+        ]
+    },
+    {
+        "name": "tonton bert",
+        "adhesion_date": "2023-07-31T16:57:59.378282",
+        "contributions": [
+            {
+                "amount": 23.0,
+                "date": "2023-07-19T21:33:36"
+            }
+        ]
+    },
+    {
+        "name": "sofoste442",
+        "adhesion_date": "2023-07-31T16:58:18",
+        "contributions": [
+            {
+                "amount": 22.0,
+                "date": "2023-07-31T16:58:59"
+            }
+        ]
+    },
+    {
+        "name": "St\u00e9phane",
+        "adhesion_date": "31/07/2023 17:09:54",
+        "contributions": []
+    },
+    {
+        "name": "sofoste6037",
+        "adhesion_date": "31/07/2023 17:10:03",
+        "contributions": []
+    },
+    {
+        "name": "Tom Cat",
+        "adhesion_date": "31/07/2023 17:10:15",
+        "contributions": []
+    },
+    {
+        "name": "Tester boy",
+        "adhesion_date": "31/07/2023 17:10:27",
+        "contributions": []
+    },
+    {
+        "name": "Minerva",
+        "adhesion_date": "31/07/2023 17:10:33",
+        "contributions": []
+    },
+    {
+        "name": "Kimia",
+        "adhesion_date": "31/07/2023 17:10:38",
+        "contributions": []
+    },
+    {
+        "name": "Jessy",
+        "adhesion_date": "31/07/2023 17:10:43",
+        "contributions": []
+    },
+    {
+        "name": "Kenneth",
+        "adhesion_date": "31/07/2023 17:10:49",
+        "contributions": []
+    }
+]

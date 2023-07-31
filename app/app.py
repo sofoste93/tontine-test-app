@@ -21,9 +21,11 @@ members = [Member(data['name'], data.get('adhesion_date'), data['contributions']
 @app.route('/')
 def home():
     page = request.args.get('page', 1, type=int)
-    per_page = 10  # you can change this to display as many members as you want per page
+    per_page = 4  # you can change this to display as many members as you want per page
     members_paginated = paginate(members, page, per_page)
-    return render_template('index.html', members=members_paginated, page=page)
+    total_pages = len(members) // per_page + (1 if len(members) % per_page > 0 else 0)
+    return render_template('index.html', members=members_paginated, page=page, total_pages=total_pages)
+
 
 
 def paginate(data, page, per_page):
